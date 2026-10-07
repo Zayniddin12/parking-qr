@@ -1,0 +1,76 @@
+{
+  "common": {
+    "appName": "AutoParking",
+    "loading": "Loading…",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "logout": "Log out",
+    "back": "Back",
+    "noData": "No records"
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "tenants": "Tenants",
+    "branches": "Branches",
+    "fleet": "Fleet",
+    "billing": "Billing",
+    "finances": "Finances",
+    "users": "Users",
+    "audit": "Audit",
+    "tariffs": "Tariffs",
+    "permits": "Permits",
+    "payments": "Payments",
+    "validation": "Validation",
+    "lists": "Lists",
+    "devices": "Devices",
+    "settings": "Settings"
+  },
+  "panel": {
+    "comingSoon": "This module is scaffolded and pending data wiring.",
+    "empty": "No records yet"
+  },
+  "lane": {
+    "cameras": "Live cameras",
+    "ledger": "Event ledger",
+    "enter": "Enter",
+    "exit": "Exit",
+    "minutes": "{{count}} min",
+    "amount": "{{amount}} UZS",
+    "siteStatus": "Site status",
+    "rowActions": "Row actions"
+  },
+  "status": {
+    "allowed": "allowed",
+    "denied": "denied",
+    "debt": "debt",
+    "paid": "paid",
+    "whitelist": "whitelist",
+    "blacklist": "blacklist",
+    "watchlist": "watch",
+    "low_confidence": "low-conf",
+    "override": "override",
+    "online": "online",
+    "degraded": "degraded",
+    "offline": "offline"
+  },
+  "actions": {
+    "openBarrier": "Open barrier",
+    "fixPlate": "Fix plate",
+    "override": "Override / allow",
+    "markPaid": "Mark paid",
+    "viewClip": "View clip"
+  },
+  "kiosk": {
+    "enterPlate": "Enter vehicle plate",
+    "yourDebt": "Your debt",
+    "choosePayment": "Choose payment method",
+    "success": "Payment successful",
+    "openingBarrier": "Opening barrier…",
+    "paymentFailed": "Payment could not be completed. Please try again or choose another method."
+  }
+}

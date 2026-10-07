@@ -1,0 +1,17 @@
+partner.{$DOMAIN} {
+	encode gzip zstd
+	reverse_proxy minor-partner-landing:80
+}
+
+bp.{$DOMAIN} {
+	basic_auth {
+		admin {$BP_PASSWORD_HASH}
+	}
+	encode gzip zstd
+	reverse_proxy minor-business-panel:80
+}
+
+api.{$DOMAIN} {
+	encode gzip zstd
+	reverse_proxy minor-partner-backend:8090
+}

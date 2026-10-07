@@ -1,0 +1,36 @@
+# Generic build+serve for a single app in the pnpm/Turborepo workspace.
+# Pass APP=<app dir under apps/>, plus any VITE_* build args the app reads.
+#
+#   docker build -f Dockerfile.web \
+#     --build-arg APP=partner-landing \
+#     --build-arg VITE_PARTNER_API_URL=http://localhost:8090 .
+#
+# ---- build stage ---------------------------------------------------------
+FROM node:20-alpine AS build
+RUN corepack enable
+WORKDIR /app
+
+# Workspace manifests first (better caching of the install layer).
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json ./
+COPY packages ./packages
+COPY apps ./apps
+RUN pnpm install --frozen-lockfile
+
+ARG APP
+ARG VITE_PARTNER_API_URL=""
+ARG VITE_AUTH_DISABLED=""
+ARG VITE_MANAGEMENT_API_URL=""
+ARG VITE_CORE_API_URL=""
+ENV VITE_PARTNER_API_URL=$VITE_PARTNER_API_URL \
+    VITE_AUTH_DISABLED=$VITE_AUTH_DISABLED \
+    VITE_MANAGEMENT_API_URL=$VITE_MANAGEMENT_API_URL \
+    VITE_CORE_API_URL=$VITE_CORE_API_URL
+
+RUN pnpm --filter ./apps/$APP build
+
+# ---- serve stage ---------------------------------------------------------
+FROM nginx:1.27-alpine
+ARG APP
+COPY --from=build /app/apps/$APP/dist /usr/share/nginx/html
+COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80

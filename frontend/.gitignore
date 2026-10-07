@@ -1,0 +1,19 @@
+# Node
+node_modules/
+dist/
+build/
+.turbo/
+*.log
+.pnpm-store/
+# build output — NEVER ship sourcemaps
+*.map
+# env & secrets (NEVER commit)
+.env
+.env.*
+.env.local
+# ...but DO commit the non-secret templates (public values only)
+!.env.example
+!**/.env.example
+# tooling
+.DS_Store
+coverage/

@@ -1,0 +1,101 @@
+# AutoParking — Frontend CI (pnpm/Turborepo monorepo)
+#
+# Enforces the ARCHITECTURE §10.6 build-hygiene mandate: thin, typed clients and
+# — critically — ZERO sourcemaps in shipped bundles. The old system was rebuilt
+# verbatim from leaked sourcemaps; the `sourcemap-leak-gate` job is the hard
+# backstop that fails the pipeline if a single `.map` file or a
+# `sourceMappingURL` reference ever reaches `dist/`.
+
+stages:
+  - install
+  - verify
+  - build
+  - security
+
+variables:
+  # Deterministic, offline-friendly pnpm store inside the project for caching.
+  PNPM_HOME: "$CI_PROJECT_DIR/.pnpm-store"
+  # Never fetch or emit sourcemaps for shipped bundles (ARCHITECTURE §10.6).
+  NODE_ENV: "production"
+
+default:
+  image: node:20.11.0-bookworm-slim
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@9.12.3 --activate
+    - pnpm config set store-dir "$PNPM_HOME"
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+      - node_modules
+      - "**/node_modules"
+
+install:
+  stage: install
+  script:
+    # Frozen lockfile: fail if pnpm-lock.yaml is out of sync (reproducible builds).
+    - pnpm install --frozen-lockfile
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - node_modules
+      - "**/node_modules"
+
+lint:
+  stage: verify
+  needs: ["install"]
+  script:
+    - pnpm install --frozen-lockfile --offline
+    - pnpm -r lint
+
+typecheck:
+  stage: verify
+  needs: ["install"]
+  script:
+    - pnpm install --frozen-lockfile --offline
+    - pnpm -r typecheck
+
+build:
+  stage: build
+  needs: ["lint", "typecheck"]
+  script:
+    - pnpm install --frozen-lockfile --offline
+    - pnpm -r build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - apps/*/dist
+
+# --- ANTI-LEAK GATE -------------------------------------------------------
+# Fails the pipeline if ANY sourcemap survived into a shipped bundle: either a
+# `.map` file on disk, or an inline/appended `sourceMappingURL` reference in the
+# emitted JS/CSS. This is the enforcement of ARCHITECTURE §10.6 ("no sourcemaps")
+# and the guard that the vite `stripSourcemaps` plugin actually did its job.
+sourcemap-leak-gate:
+  stage: security
+  needs: ["build"]
+  script:
+    - |
+      set -eu
+      echo "Scanning apps/*/dist for leaked sourcemaps…"
+      maps=$(find apps/*/dist -type f -name '*.map' 2>/dev/null || true)
+      refs=$(grep -rIl "sourceMappingURL" apps/*/dist 2>/dev/null || true)
+      status=0
+      if [ -n "$maps" ]; then
+        echo "❌ Sourcemap files found in dist (must be ZERO):"
+        echo "$maps"
+        status=1
+      fi
+      if [ -n "$refs" ]; then
+        echo "❌ sourceMappingURL references found in shipped bundles (must be ZERO):"
+        echo "$refs"
+        status=1
+      fi
+      if [ "$status" -ne 0 ]; then
+        echo "Anti-leak gate FAILED — sourcemaps must never ship (ARCHITECTURE §10.6)."
+        exit 1
+      fi
+      echo "✅ Anti-leak gate passed: 0 .map files, 0 sourceMappingURL references."

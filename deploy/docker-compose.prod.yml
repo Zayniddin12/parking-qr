@@ -1,0 +1,59 @@
+name: minor-parking
+
+services:
+  caddy:
+    image: caddy:2
+    container_name: minor-caddy
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN}
+      BP_PASSWORD_HASH: ${BP_PASSWORD_HASH}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [web]
+    restart: unless-stopped
+
+  partner-backend:
+    build: ../backend
+    container_name: minor-partner-backend
+    environment:
+      PARTNER_DB_PATH: /data/partner.db
+      PARTNER_JWT_SECRET: ${PARTNER_JWT_SECRET}
+      PARTNER_QR_SECRET: ${PARTNER_QR_SECRET}
+    volumes:
+      - minor_data:/data
+    networks: [web]
+    restart: unless-stopped
+
+  business-panel:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile.web
+      args:
+        APP: business-panel
+        VITE_PARTNER_API_URL: https://api.${DOMAIN}
+        VITE_AUTH_DISABLED: "true"
+    container_name: minor-business-panel
+    networks: [web]
+    restart: unless-stopped
+
+  partner-landing:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile.web
+      args:
+        APP: partner-landing
+        VITE_PARTNER_API_URL: https://api.${DOMAIN}
+    container_name: minor-partner-landing
+    networks: [web]
+    restart: unless-stopped
+
+networks:
+  web:
+
+volumes:
+  minor_data:
+  caddy_data:
+  caddy_config:

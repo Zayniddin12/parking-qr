@@ -1,0 +1,76 @@
+{
+  "common": {
+    "appName": "AutoParking",
+    "loading": "Yuklanmoqda…",
+    "retry": "Qayta urinish",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "search": "Qidirish",
+    "add": "Qo'shish",
+    "edit": "Tahrirlash",
+    "delete": "O'chirish",
+    "logout": "Chiqish",
+    "back": "Orqaga",
+    "noData": "Ma'lumot yo'q"
+  },
+  "menu": {
+    "dashboard": "Boshqaruv paneli",
+    "tenants": "Ijarachilar",
+    "branches": "Filiallar",
+    "fleet": "Qurilmalar parki",
+    "billing": "Hisob-kitob",
+    "finances": "Moliya",
+    "users": "Foydalanuvchilar",
+    "audit": "Audit",
+    "tariffs": "Tariflar",
+    "permits": "Ruxsatnomalar",
+    "payments": "To'lovlar",
+    "validation": "Validatsiya",
+    "lists": "Ro'yxatlar",
+    "devices": "Qurilmalar",
+    "settings": "Sozlamalar"
+  },
+  "panel": {
+    "comingSoon": "Ushbu modul tayyorlangan, ma'lumot ulanishi kutilmoqda.",
+    "empty": "Hozircha yozuvlar yo'q"
+  },
+  "lane": {
+    "cameras": "Jonli kameralar",
+    "ledger": "Voqealar jurnali",
+    "enter": "Kirish",
+    "exit": "Chiqish",
+    "minutes": "{{count}} daqiqa",
+    "amount": "{{amount}} so'm",
+    "siteStatus": "Obyekt holati",
+    "rowActions": "Qator amallari"
+  },
+  "status": {
+    "allowed": "ruxsat berildi",
+    "denied": "rad etildi",
+    "debt": "qarz",
+    "paid": "to'landi",
+    "whitelist": "oq ro'yxat",
+    "blacklist": "qora ro'yxat",
+    "watchlist": "kuzatuv",
+    "low_confidence": "past ishonch",
+    "override": "qo'lda boshqaruv",
+    "online": "onlayn",
+    "degraded": "cheklangan",
+    "offline": "oflayn"
+  },
+  "actions": {
+    "openBarrier": "Shlagbaumni ochish",
+    "fixPlate": "Raqamni tuzatish",
+    "override": "Bekor qilish / ruxsat",
+    "markPaid": "To'langan deb belgilash",
+    "viewClip": "Yozuvni ko'rish"
+  },
+  "kiosk": {
+    "enterPlate": "Avtomobil raqamini kiriting",
+    "yourDebt": "Sizning qarzingiz",
+    "choosePayment": "To'lov usulini tanlang",
+    "success": "To'lov muvaffaqiyatli",
+    "openingBarrier": "Shlagbaum ochilmoqda…",
+    "paymentFailed": "To'lovni yakunlab bo'lmadi. Qayta urinib ko'ring yoki boshqa usulni tanlang."
+  }
+}

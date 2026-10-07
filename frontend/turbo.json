@@ -1,0 +1,33 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "stream",
+  "globalEnv": [
+    "NODE_ENV",
+    "VITE_MANAGEMENT_API_URL",
+    "VITE_CORE_API_URL",
+    "VITE_WHEP_BASE_URL",
+    "VITE_BRANCH_ID",
+    "VITE_USE_MOCK",
+    "VITE_OIDC_AUTHORITY",
+    "VITE_OIDC_CLIENT_ID",
+    "VITE_OIDC_REDIRECT_URI",
+    "VITE_OIDC_POST_LOGOUT_REDIRECT_URI",
+    "VITE_OIDC_SCOPE"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    }
+  }
+}

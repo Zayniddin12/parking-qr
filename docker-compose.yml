@@ -1,0 +1,44 @@
+name: minor-parking
+
+services:
+  partner-backend:
+    build: ./backend
+    container_name: minor-partner-backend
+    environment:
+      PARTNER_DB_PATH: /data/partner.db
+      PARTNER_JWT_SECRET: ${PARTNER_JWT_SECRET}
+      PARTNER_QR_SECRET: ${PARTNER_QR_SECRET}
+    volumes:
+      - minor_data:/data
+    networks: [web]
+    restart: unless-stopped
+
+  business-panel:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.web
+      args:
+        APP: business-panel
+        VITE_PARTNER_API_URL: https://api-parking.imanage.uz
+        VITE_AUTH_DISABLED: "true"
+    container_name: minor-business-panel
+    networks: [web]
+    restart: unless-stopped
+
+  partner-landing:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.web
+      args:
+        APP: partner-landing
+        VITE_PARTNER_API_URL: https://api-parking.imanage.uz
+    container_name: minor-partner-landing
+    networks: [web]
+    restart: unless-stopped
+
+networks:
+  web:
+    external: true
+
+volumes:
+  minor_data:

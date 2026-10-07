@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.turbo/
+.venv/
+__pycache__/
+*.pyc
+.idea/
+.claude/
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# SQLite databases and backups (real data)
+*.db
+*.db-shm
+*.db-wal
+data-backup/
+
+# server snapshots (hosts, password hashes)
+server-config/

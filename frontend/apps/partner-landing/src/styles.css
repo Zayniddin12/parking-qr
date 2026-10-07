@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: #3f4254;
+  background:
+    radial-gradient(1100px 520px at 85% -10%, rgba(68, 137, 247, 0.1), transparent 60%),
+    radial-gradient(900px 480px at -5% 110%, rgba(68, 137, 247, 0.07), transparent 55%),
+    #f6f8fa;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Number-plate glyph: monospaced, slightly condensed, high-contrast. */
+.plate-glyph {
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Responsive inline QR svg. */
+.qrbox svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Quiet, premium focus ring. */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(68, 137, 247, 0.25);
+}
+
+/* Gentle entrance for the receipt. */
+@keyframes ap-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-pop {
+  animation: ap-pop 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Print: only the receipt, on clean white. */
+@media print {
+  body {
+    background: #fff;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0 auto auto 0;
+    margin: 0 auto;
+    width: 320px;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
