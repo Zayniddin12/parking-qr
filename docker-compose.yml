@@ -39,6 +39,7 @@ services:
 networks:
   web:
     external: true
+    name: minor-parking_web
 
 volumes:
   minor_data:
