@@ -35,7 +35,7 @@ from Crypto.Util.Padding import pad, unpad
 _IV_LEN = 16
 
 # Default DEV secret (32-char string → AES-256). Override with PARTNER_QR_SECRET.
-_DEFAULT_SECRET = "autoparkingqrsecretkey0123456789"
+_DEFAULT_SECRET = "34dacc356411cb44dd5f0ba9b98fa610"
 
 
 def _secret() -> bytes:
