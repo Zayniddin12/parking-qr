@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { store, qrPayload, type Check, type PartnerAccount } from '../store';
 import { qrSvg } from '../qr';
+import { printReceipt } from '../printReceipt';
 import { Receipt } from '../components/Receipt';
 import { Wordmark } from '../components/Wordmark';
 
@@ -99,7 +100,7 @@ export function Home({ partner, onLogout }: { partner: PartnerAccount; onLogout:
                 <Receipt partner={partner} check={current.check} qr={current.qr} />
                 <div className="no-print flex items-center gap-2">
                   <button
-                    onClick={() => window.print()}
+                    onClick={() => void printReceipt(partner, current.check, current.qr)}
                     className="focus-ring inline-flex h-10 items-center rounded-2lg border border-gray-200 bg-white px-4 text-2xs font-medium text-gray-700 hover:bg-gray-100"
                   >
                     🖨 Chop etish
