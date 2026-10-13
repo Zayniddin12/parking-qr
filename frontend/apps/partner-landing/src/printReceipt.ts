@@ -41,10 +41,11 @@ export async function printReceipt(partner: PartnerAccount, check: Check, qrSvgT
 
   const html = `<!doctype html><html><head><meta charset="utf-8"><title>Chek ${esc(check.id)}</title>
 <style>
-@page { margin: 4mm; }
+@page { size: 80mm 100mm; margin: 0; }
 * { box-sizing: border-box; }
+html, body { width: 80mm; height: 100mm; overflow: hidden; }
 body { margin: 0; font-family: Arial, sans-serif; color: #000; background: #fff; text-align: center; }
-.w { width: 68mm; margin: 0 auto; }
+.w { width: 70mm; margin: 0 auto; padding-top: 3mm; }
 .t { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-top: 2mm; }
 .n { font-size: 16px; font-weight: bold; margin: 1mm 0 2mm; }
 .id { font-size: 18px; font-weight: bold; letter-spacing: 1px; margin-bottom: 2mm; }
