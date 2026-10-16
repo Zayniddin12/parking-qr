@@ -41,26 +41,24 @@ export async function printReceipt(partner: PartnerAccount, check: Check, qrSvgT
 
   const html = `<!doctype html><html><head><meta charset="utf-8"><title>Chek ${esc(check.id)}</title>
 <style>
-@page { size: 80mm 100mm; margin: 0; }
+@page { size: 80mm 72mm; margin: 0; }
 * { box-sizing: border-box; }
-html, body { width: 80mm; height: 100mm; overflow: hidden; }
+html, body { width: 80mm; height: 72mm; overflow: hidden; }
 body { margin: 0; font-family: Arial, sans-serif; color: #000; background: #fff; text-align: center; }
-.w { width: 70mm; margin: 0 auto; padding-top: 3mm; }
-.t { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-top: 2mm; }
-.n { font-size: 16px; font-weight: bold; margin: 1mm 0 2mm; }
-.id { font-size: 18px; font-weight: bold; letter-spacing: 1px; margin-bottom: 2mm; }
-img { width: 52mm; height: 52mm; image-rendering: pixelated; display: block; margin: 0 auto; }
-.r { font-size: 12px; margin-top: 2mm; }
-.f { font-size: 10px; margin-top: 3mm; border-top: 1px dashed #000; padding-top: 2mm; }
+.w { width: 70mm; margin: 0 auto; padding-top: 2mm; }
+.t { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; }
+.n { font-size: 14px; font-weight: bold; margin: 0.5mm 0 1mm; }
+.id { font-size: 15px; font-weight: bold; letter-spacing: 1px; margin-bottom: 1mm; }
+img { width: 40mm; height: 40mm; image-rendering: pixelated; display: block; margin: 0 auto; }
+.r { font-size: 11px; margin-top: 1mm; }
+.f { font-size: 10px; margin-top: 1.5mm; border-top: 1px dashed #000; padding-top: 1mm; }
 </style></head><body><div class="w">
 <div class="t">Validatsiya cheki</div>
 <div class="n">${esc(partner.name)}</div>
 <div class="id">${esc(check.id)}</div>
 <img src="${png}" alt="QR">
 <div class="r">${esc(date)}</div>
-<div class="r"><b>Bepul turargoh: ${esc(String(partner.freeMinutes))} daqiqa</b></div>
-${partner.note ? `<div class="r">${esc(partner.note)}</div>` : ''}
-<div class="f">AutoParking</div>
+<div class="f"><b>Minor Parking uchun</b></div>
 </div></body></html>`;
 
   const frame = document.createElement('iframe');

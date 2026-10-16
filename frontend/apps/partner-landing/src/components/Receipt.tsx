@@ -44,17 +44,10 @@ export function Receipt({
 
       <div className="px-6 py-4">
         <Row label="Sana" value={fmt(check.createdAt)} />
-        <Row
-          label="Bepul turargoh"
-          value={<span className="font-semibold text-primary">{partner.freeMinutes} daqiqa</span>}
-        />
-      </div>
-
-      {partner.note && (
-        <div className="mx-6 mb-2 rounded-2lg bg-primary-50 px-3 py-2 text-center text-2xs text-primary-800">
-          {partner.note}
+        <div className="py-2 text-center text-sm font-semibold text-gray-800">
+          Minor Parking uchun
         </div>
-      )}
+      </div>
 
       {/* perforated edge for receipt feel */}
       <div className="mt-2 border-t border-dashed border-gray-300" />
